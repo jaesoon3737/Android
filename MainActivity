@@ -1,0 +1,40 @@
+package soo.app.web;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    WebView wv;
+    Resources r;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        wv = (WebView)findViewById(R.id.wv);
+        wv.setWebViewClient(new WebViewClient());
+        wv.setWebChromeClient(new WebChromeClient()); // 창이 뜨게하는 js를 실행 시킴
+        WebSettings settings = wv.getSettings();
+        settings.setJavaScriptEnabled(true); //기본 js 실행
+
+        r = this.getResources();
+        /*
+        String appname = r.getString(R.string.app_name);
+        String hobby = r.getString(R.string.hobby);
+        showMsg("appname : " + appname + ", hooby : " + hobby);*/
+        String url_daum = r.getString(R.string.url_daum);
+        wv.loadUrl(url_daum);
+    }
+
+    void showMsg(String msg){
+        Toast.makeText(this , msg , Toast.LENGTH_SHORT).show();
+    }
+}
